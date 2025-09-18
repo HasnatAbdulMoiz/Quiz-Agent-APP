@@ -6,10 +6,10 @@ from contextlib import asynccontextmanager
 import os
 from dotenv import load_dotenv
 
-from backend.database import engine, get_db
-from backend.models import Base
-from backend.auth import get_current_active_user, require_admin, require_teacher_or_admin
-from backend.schemas import (
+from app.database import engine, get_db
+from app.models import Base
+from app.auth import get_current_active_user, require_admin, require_teacher_or_admin
+from app.schemas import (
     UserCreate, UserResponse, LoginRequest, Token,
     QuizCreate, QuizResponse, QuizUpdate,
     QuestionCreate, QuestionResponse, QuestionUpdate,
@@ -17,8 +17,8 @@ from backend.schemas import (
     AIGenerationRequest, AIGenerationResponse,
     AnalyticsData, NotificationResponse
 )
-from backend.models import User, Quiz, Question, QuizResult, Notification
-from backend.ai_agent.quiz_generator import QuizGenerator
+from app.models import User, Quiz, Question, QuizResult, Notification
+from app.ai_agent.quiz_generator import QuizGenerator
 
 load_dotenv()
 

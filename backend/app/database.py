@@ -6,7 +6,8 @@ from dotenv import load_dotenv
 
 load_dotenv()
 
-DATABASE_URL = os.getenv("DATABASE_URL", "postgresql://postgres:password@localhost:5432/quiz_system")
+# Use your Neon database URL
+DATABASE_URL = os.getenv("DATABASE_URL", "postgresql://default:tp2Nnx9quTzH@ep-odd-bush-a44p852m-pooler.us-east-1.aws.neon.tech/verceldb?sslmode=require&channel_binding=require")
 
 engine = create_engine(DATABASE_URL)
 SessionLocal = sessionmaker(autocommit=False, autoflush=False, bind=engine)
