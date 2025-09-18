@@ -26,12 +26,7 @@ load_dotenv()
 async def lifespan(app: FastAPI):
     # Startup
     print("Starting AI Quiz System...")
-    try:
-        # Create database tables only when needed
-        Base.metadata.create_all(bind=engine)
-        print("Database tables created successfully")
-    except Exception as e:
-        print(f"Database initialization warning: {e}")
+    # Skip database initialization on startup for serverless
     yield
     # Shutdown
     print("Shutting down AI Quiz System...")
@@ -455,6 +450,16 @@ async def root():
 async def health_check():
     """Health check endpoint."""
     return {"status": "healthy", "message": "AI Quiz System is running"}
+
+# Database initialization endpoint
+@app.post("/init-db")
+async def init_database():
+    """Initialize database tables."""
+    try:
+        Base.metadata.create_all(bind=engine)
+        return {"status": "success", "message": "Database tables created successfully"}
+    except Exception as e:
+        return {"status": "error", "message": f"Database initialization failed: {str(e)}"}
 
 if __name__ == "__main__":
     import uvicorn
