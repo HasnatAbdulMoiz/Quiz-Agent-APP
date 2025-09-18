@@ -22,13 +22,16 @@ from app.ai_agent.quiz_generator import QuizGenerator
 
 load_dotenv()
 
-# Create database tables
-Base.metadata.create_all(bind=engine)
-
 @asynccontextmanager
 async def lifespan(app: FastAPI):
     # Startup
     print("Starting AI Quiz System...")
+    try:
+        # Create database tables only when needed
+        Base.metadata.create_all(bind=engine)
+        print("Database tables created successfully")
+    except Exception as e:
+        print(f"Database initialization warning: {e}")
     yield
     # Shutdown
     print("Shutting down AI Quiz System...")
@@ -440,6 +443,12 @@ async def get_analytics(
         performance_by_grade={},
         recent_activity=[]
     )
+
+# Root endpoint
+@app.get("/")
+async def root():
+    """Root endpoint."""
+    return {"message": "AI Quiz System API is running!", "status": "healthy"}
 
 # Health check
 @app.get("/health")

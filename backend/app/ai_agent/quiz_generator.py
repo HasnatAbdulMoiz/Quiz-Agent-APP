@@ -2,8 +2,8 @@ import google.generativeai as genai
 import json
 import os
 from typing import List, Dict, Any, Optional
-from backend.schemas import QuestionCreate, QuestionType, AIGenerationRequest
-from backend.models import Question, Quiz
+from app.schemas import QuestionCreate, QuestionType, AIGenerationRequest
+from app.models import Question, Quiz
 from sqlalchemy.orm import Session
 import logging
 
